@@ -48,6 +48,9 @@ class Imagick extends \Imagick {
         $this->setOption('png:compression-strategy', '1');
         $this->setOption('png:exclude-chunk', 'all');
         $this->setInterlaceScheme(\Imagick::INTERLACE_NO);
+        
+        // Prevent memory leak
+	    $this->setResourceLimit(\Imagick::RESOURCETYPE_MEMORY, 256);
 
         // Older Imagick versions might not have this. Better make sure.
         if (!$preserveColorInfo &&  method_exists($this, 'transformimagecolorspace'))
